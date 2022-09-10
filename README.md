@@ -1,4 +1,4 @@
-# Jeopary
+# Django-Quiz
 
 1.  Get the source code by cloning the repo at    
 <a href="https://github.com/raphaeluziel/django-quiz.git" target="_blank">https://github.com/raphaeluziel/django-quiz.git</a>
