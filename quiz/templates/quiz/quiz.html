@@ -1,0 +1,27 @@
+{% extends 'quiz/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'quiz/css/quiz.css' %}">
+{% endblock styles %}
+
+{% block content %}
+
+    <h1>Quiz</h1>
+
+    {% if user.is_authenticated %}
+        <div style="text-align: right;"><a href="{% url 'logout' %}">Logout</a></div>
+    {% endif %}
+    <br>
+
+    <p>Ready to take a quiz, {{ user.first_name }}.  To begin, select a category.</p>
+
+
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'quiz/js/quiz.js' %}"></script>
+{% endblock javascript %}
