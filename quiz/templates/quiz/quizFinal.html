@@ -33,18 +33,12 @@
 
         <select class="form-select" name="question_pk" id="question">
             <option selected disabled value="0">Question</option>
-            {% for question in questions %}
-                <option value="{{ question.pk }}">{{ question }}</option>
-            {% endfor %}
         </select>
 
         <br>
 
         <select class="form-select" name="answer_pk" id="answer">
             <option selected disabled value="0">Answer</option>
-            {% for answer in answers %}
-                <option value="{{ answer.pk }}">{{ answer }}</option>
-            {% endfor %}
         </select>
 
         <br>

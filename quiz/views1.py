@@ -22,10 +22,8 @@ def get_answers(request, question_pk):
 
 @login_required
 def get_questions_answered(request):
-    questions_answered = []
-    for question in request.user.player.questions_answered.all():
-        questions_answered.append(question.id)
-    return JsonResponse(questions_answered, safe=False)
+    questions_answered = request.user.player.questions_answered
+    return JsonResponse(list(questions_answered.values()), safe=False)
 
 
 @login_required
@@ -34,6 +32,8 @@ def quiz(request):
     player, created = Player.objects.get_or_create(player=request.user)
 
     categories = Category.objects.all()
+    questions = Question.objects.all()
+    answers = Answer.objects.all()
 
     form = QuizForm(request.POST or None)
 
@@ -50,6 +50,8 @@ def quiz(request):
     context = {
         'player': player,
         'categories': categories,
+        'questions': questions,
+        'answers': answers,
     }
 
     return render(request, "quiz/quiz.html", context)

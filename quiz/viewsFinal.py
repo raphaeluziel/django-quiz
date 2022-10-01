@@ -22,10 +22,8 @@ def get_answers(request, question_pk):
 
 @login_required
 def get_questions_answered(request):
-    questions_answered = []
-    for question in request.user.player.questions_answered.all():
-        questions_answered.append(question.id)
-    return JsonResponse(questions_answered, safe=False)
+    questions_answered = request.user.player.questions_answered
+    return JsonResponse(list(questions_answered.values()), safe=False)
 
 
 @login_required

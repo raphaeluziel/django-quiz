@@ -22,7 +22,7 @@
     <form action="#" method="post">
         {% csrf_token %}
 
-        <select class="form-select" name="category_pk" id="category">
+        <select class="form-select" name="category_pk">
             <option selected disabled>Category</option>
             {% for category in categories %}
                 <option value="{{ category.pk }}">{{ category }}</option>
@@ -31,7 +31,7 @@
 
         <br>
 
-        <select class="form-select" name="question_pk" id="question">
+        <select class="form-select" name="question_pk">
             <option selected disabled value="0">Question</option>
             {% for question in questions %}
                 <option value="{{ question.pk }}">{{ question }}</option>
@@ -40,7 +40,7 @@
 
         <br>
 
-        <select class="form-select" name="answer_pk" id="answer">
+        <select class="form-select" name="answer_pk">
             <option selected disabled value="0">Answer</option>
             {% for answer in answers %}
                 <option value="{{ answer.pk }}">{{ answer }}</option>
@@ -51,7 +51,7 @@
 
         <p>Score: <strong>{{ player.score }}</strong> </p>
 
-        <input class="btn btn-primary" type="submit" value="submit" id="submit">
+        <input class="btn btn-primary" type="submit" value="submit">
 
     </form>
 
