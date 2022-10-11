@@ -5,6 +5,7 @@ from django.db import models
 class Player(models.Model):
     player = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     questions_answered = models.ManyToManyField('Question', blank=True)
+    categories_done = models.ManyToManyField('Category', blank = True)
     score = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):

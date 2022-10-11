@@ -24,13 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
         question.value = 0;
         submit.disabled = true;
 
+        /*
         const [get_questions_answered, get_questions] = await Promise.all([
             fetch('/get_questions_answered'),
             fetch('/get_questions/' + e.target.value)
         ]);
 
-        let questions_answered = await get_questions_answered.json();
-        let questions = await get_questions.json();
+        const [questions_answered, questions] = await Promise.all([
+            get_questions_answered.json(),
+            get_questions.json()
+        ]);
+        */
+
+        const get_questions_answered = await fetch('/get_questions_answered');
+        const questions_answered = await get_questions_answered.json();
+
+        const get_questions = await fetch('/get_questions/' + e.target.value);
+        const questions = await get_questions.json();
+
+        //let questions_answered = await get_questions_answered.json();
+        //let questions = await get_questions.json();
 
         for (let i = 0; i < questions.length; i++) {
             question.options[i+1] = new Option(questions[i].question, questions[i].id);

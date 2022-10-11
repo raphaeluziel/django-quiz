@@ -30,17 +30,26 @@ def get_questions_answered(request):
 
 @login_required
 def quiz(request):
+    print(request.POST)
 
     player, created = Player.objects.get_or_create(player=request.user)
-
     categories = Category.objects.all()
-
     form = QuizForm(request.POST or None)
 
     if form.is_valid():
+        category = get_object_or_404(Category, pk=request.POST.get('category_pk'))
         question = get_object_or_404(Question, pk=request.POST.get('question_pk'))
         answer = get_object_or_404(Answer, pk=request.POST.get('answer_pk'))
         player.questions_answered.add(question)
+
+        # Check to see if ALL questions in this category have now been answered
+        # Using a set since I don't care about order, but there should be no duplicates
+        questions_in_this_category_answered = set(player.questions_answered.filter(category=category))
+        all_questions_in_this_category = set(Question.objects.filter(category=category))
+
+        if questions_in_this_category_answered == all_questions_in_this_category:
+            player.categories_done.add(category)
+
         if answer == question.correct_answer:
             player.score = player.score + 1
             player.save()
@@ -50,6 +59,7 @@ def quiz(request):
     context = {
         'player': player,
         'categories': categories,
+        'categories_done': player.categories_done,
     }
 
     return render(request, "quiz/quiz.html", context)

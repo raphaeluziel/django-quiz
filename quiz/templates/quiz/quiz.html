@@ -25,7 +25,11 @@
         <select class="form-select" name="category_pk" id="category">
             <option selected disabled>Category</option>
             {% for category in categories %}
-                <option value="{{ category.pk }}">{{ category }}</option>
+                {% if category not in categories_done.all %}
+                    <option value="{{ category.pk }}">{{ category }}</option>
+                {% else %}
+                    <option disabled value="{{ category.pk }}">{{ category }}</option>
+                {% endif %}
             {% endfor %}
         </select>
 
